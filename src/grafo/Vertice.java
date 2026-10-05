@@ -2,10 +2,7 @@ package grafo;
 
 import com.sun.jdi.IntegerValue;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 public class Vertice{
@@ -13,11 +10,11 @@ public class Vertice{
     private final String nombreProvincia;
     private final double x;
     private final double y;
-    List<Set<Vertice>> vecinos;
+    Set <Vertice> vecinos;
 
     public Vertice(String nombreProvincia, double x, double y){
         this.nombreProvincia=nombreProvincia;
-        vecinos=new ArrayList<>();
+        vecinos=new HashSet<>();
         this.x=x;
         this.y=y;
     }
@@ -33,6 +30,6 @@ public class Vertice{
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Vertice vertice = (Vertice) o;
-        return Double.compare(x, vertice.x) == 0 && Double.compare(y, vertice.y) == 0 && Objects.equals(nombreProvincia, vertice.nombreProvincia);
+        return Double.compare(x, vertice.x) == 0 && Double.compare(y, vertice.y) == 0;
     }
 }

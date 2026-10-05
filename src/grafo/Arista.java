@@ -14,6 +14,13 @@ public class Arista {
 
     @Override
     public boolean equals(Object obj) {
-        
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Arista arista = (Arista) obj;
+        return (arista.vertice1.equals(this.vertice1) && arista.vertice2.equals(this.vertice2)
+                    ||
+                arista.vertice2.equals(this.vertice1) && arista.vertice1.equals(this.vertice2)
+                    &&
+                arista.similaridad==this.similaridad
+                    );
     }
 }
