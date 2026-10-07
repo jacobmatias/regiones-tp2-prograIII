@@ -1,35 +1,45 @@
 package grafo;
 
-import com.sun.jdi.IntegerValue;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
-import java.util.*;
-
-
-public class Vertice{
-
-    private final String nombreProvincia;
+public class Vertice {
+    private final String nombre;
     private final double x;
     private final double y;
-    Set <Vertice> vecinos;
+    private final Set<Vertice> vecinos = new LinkedHashSet<>();
 
-    public Vertice(String nombreProvincia, double x, double y){
-        this.nombreProvincia=nombreProvincia;
-        vecinos=new HashSet<>();
-        this.x=x;
-        this.y=y;
+    public Vertice(String nombre, double x, double y) {
+        if (nombre == null || nombre.trim().isEmpty())
+            throw new IllegalArgumentException("El nombre no puede ser vacío");
+        this.nombre = nombre.trim();
+        this.x = x;
+        this.y = y;
     }
 
-    public
+    public String getNombre() { return nombre; }
+    public double getX() { return x; }
+    public double getY() { return y; }
 
-    @Override
-     int hashCode() {
-        return Objects.hash(nombreProvincia,x,y);
+    public Set<Vertice> getVecinos() {
+        return Collections.unmodifiableSet(vecinos);
     }
+
+    // visibilidad de paquete: solo Grafo puede llamarlo
+    void agregarVecino(Vertice otro) { vecinos.add(otro); }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Vertice vertice = (Vertice) o;
-        return Double.compare(x, vertice.x) == 0 && Double.compare(y, vertice.y) == 0;
+        if (this == o) return true;
+        if (!(o instanceof Vertice)) return false;
+        return nombre.equals(((Vertice) o).nombre);
     }
+
+    @Override
+    public int hashCode() { return Objects.hash(nombre); }
+
+    @Override
+    public String toString() { return nombre; }
 }
