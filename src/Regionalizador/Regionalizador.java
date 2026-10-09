@@ -1,11 +1,12 @@
-package negocio;
+package Regionalizador;
 
 import java.util.*;
-import agm.Kruskal;
-import agm.UnionFind;
-import grafo.Arista;
-import grafo.Grafo;
-import grafo.Vertice;
+
+import Agm.Kruskal;
+import Agm.UnionFind;
+import Grafo.Arista;
+import Grafo.Grafo;
+import Grafo.Provincia;
 
 public class Regionalizador {
 
@@ -14,7 +15,7 @@ public class Regionalizador {
             throw new IllegalArgumentException("El grafo no puede ser null");
         }
         
-        int n = g.getVertices().size();
+        int n = g.getProvincias().size();
         
         if (k <= 0 || k > n) {
             throw new IllegalArgumentException("El valor de k debe estar entre 1 y " + n);
@@ -32,21 +33,27 @@ public class Regionalizador {
             aristasFiltradas.add(agm.get(i));
         }
 
-        UnionFind<Vertice> uf = new UnionFind<>(g.getVertices());
+        UnionFind<Provincia> uf = new UnionFind<>(g.getProvincias());
         for (Arista a : aristasFiltradas) {
-            uf.union(a.getVertice1(), a.getVertice2());
+            uf.union(a.getProvincia1(), a.getProvincia2());
         }
 
-        //agrupar los vertices en regiones
-        Map<Vertice, Region> mapaRegiones = new HashMap<>();
-        for (Vertice v : g.getVertices()) {
-            Vertice representante = uf.find(v);
+        //agrupar las provincias en regiones
+        Map<Provincia, Region> mapaRegiones = new HashMap<>();
+        for (Provincia v : g.getProvincias()) {
+            Provincia representante = uf.find(v);
             if (!mapaRegiones.containsKey(representante)) {
                 mapaRegiones.put(representante, new Region());
             }
             mapaRegiones.get(representante).agregarProvincia(v);
         }
-
+        
+        //agregar las aristas a sus respectivas regiones
+        for (Arista a: aristasFiltradas) {
+        	Provincia provinciaPrincipal = uf.find(a.getProvincia1());
+        	mapaRegiones.get(provinciaPrincipal).agregarArista(a);
+        }
+      
         return new ArrayList<>(mapaRegiones.values());
     }
 }

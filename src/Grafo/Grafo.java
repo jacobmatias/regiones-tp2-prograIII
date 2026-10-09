@@ -1,21 +1,21 @@
-package grafo;
+package Grafo;
 
 import java.util.*;
 
 public class Grafo {
-    private final Set<Vertice> vertices = new LinkedHashSet<>();
+    private final Set<Provincia> vertices = new LinkedHashSet<>();
     private final List<Arista> aristas = new ArrayList<>();
 
-    public void agregarVertice(Vertice v) {
-        if (v == null) throw new IllegalArgumentException("El vértice no puede ser null");
+    public void agregarProvincia(Provincia v) {
+        if (v == null) throw new IllegalArgumentException("La provincia no puede ser null");
         vertices.add(v);
     }
 
-    public void agregarArista(Vertice a, Vertice b, double similaridad) {
+    public void agregarArista(Provincia a, Provincia b, double similaridad) {
         verificarExiste(a);
         verificarExiste(b);
         if (a.equals(b))
-            throw new IllegalArgumentException("No se permiten aristas de un vértice consigo mismo");
+            throw new IllegalArgumentException("No se permiten aristas de una provincia consigo misma");
         if (a.getVecinos().contains(b))
             throw new IllegalArgumentException("La arista " + a + "-" + b + " ya existe");
 
@@ -24,22 +24,22 @@ public class Grafo {
         aristas.add(new Arista(a, b, similaridad));
     }
 
-    public Set<Vertice> getVertices() { return Collections.unmodifiableSet(vertices); }
+    public Set<Provincia> getProvincias() { return Collections.unmodifiableSet(vertices); }
     public List<Arista> getAristas() { return Collections.unmodifiableList(aristas); }
 
-    public Set<Vertice> getVecinos(Vertice v) {
+    public Set<Provincia> getVecinos(Provincia v) {
         verificarExiste(v);
         return v.getVecinos();
     }
 
-    public Set<Vertice> recorrer(Vertice inicio) {
+    public Set<Provincia> recorrer(Provincia inicio) {
         verificarExiste(inicio);
-        Set<Vertice> visitados = new LinkedHashSet<>();
-        Queue<Vertice> cola = new LinkedList<>();
+        Set<Provincia> visitados = new LinkedHashSet<>();
+        Queue<Provincia> cola = new LinkedList<>();
         visitados.add(inicio);
         cola.add(inicio);
         while (!cola.isEmpty()) {
-            for (Vertice v : cola.remove().getVecinos()) {
+            for (Provincia v : cola.remove().getVecinos()) {
                 if (visitados.add(v)) cola.add(v);
             }
         }
@@ -51,8 +51,8 @@ public class Grafo {
         return recorrer(vertices.iterator().next()).size() == vertices.size();
     }
 
-    private void verificarExiste(Vertice v) {
+    private void verificarExiste(Provincia v) {
         if (v == null || !vertices.contains(v))
-            throw new IllegalArgumentException("El vértice no existe en el grafo: " + v);
+            throw new IllegalArgumentException("La provincia no existe en el grafo: " + v);
     }
 }

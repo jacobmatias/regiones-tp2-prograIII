@@ -1,4 +1,4 @@
-package GrafoTest;
+package ClasesTest;
 
 import static org.junit.Assert.*;
 
@@ -6,23 +6,23 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import grafo.Grafo;
-import grafo.Vertice;
+import Grafo.Grafo;
+import Grafo.Provincia;
 
 public class GrafoTest {
 
     private Grafo g;
-    private Vertice a, b, c;
+    private Provincia a, b, c;
 
     @Before
     public void setUp() {
         g = new Grafo();
-        a = new Vertice("A", 0, 0);
-        b = new Vertice("B", 0, 0);
-        c = new Vertice("C", 0, 0);
-        g.agregarVertice(a);
-        g.agregarVertice(b);
-        g.agregarVertice(c);
+        a = new Provincia("A", 0, 0);
+        b = new Provincia("B", 0, 0);
+        c = new Provincia("C", 0, 0);
+        g.agregarProvincia(a);
+        g.agregarProvincia(b);
+        g.agregarProvincia(c);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class GrafoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void aristaConVerticeInexistente() {
-        Vertice z = new Vertice("Z", 0, 0);
+        Provincia z = new Provincia("Z", 0, 0);
         g.agregarArista(a, z, 1);
     }
 
@@ -57,19 +57,19 @@ public class GrafoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void agregarVerticeNull() {
-        g.agregarVertice(null);
+        g.agregarProvincia(null);
     }
 
     @Test
     public void verticeRepetidoNoSeDuplica() {
-        g.agregarVertice(new Vertice("A", 5, 5));
-        assertEquals(3, g.getVertices().size());
+        g.agregarProvincia(new Provincia("A", 5, 5));
+        assertEquals(3, g.getProvincias().size());
     }
 
     @Test
     public void recorrerAlcanzaSoloLosVerticesDeLaComponente() {
         g.agregarArista(a, b, 1);
-        Set<Vertice> alcanzados = g.recorrer(a);
+        Set<Provincia> alcanzados = g.recorrer(a);
         assertEquals(2, alcanzados.size());
         assertTrue(alcanzados.contains(b));
         assertFalse(alcanzados.contains(c));
@@ -96,7 +96,7 @@ public class GrafoTest {
     @Test
     public void grafoDeUnSoloVerticeEsConexo() {
         Grafo solo = new Grafo();
-        solo.agregarVertice(new Vertice("X", 0, 0));
+        solo.agregarProvincia(new Provincia("X", 0, 0));
         assertTrue(solo.esConexo());
     }
 
