@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import Controlador.Controlador;
 import javax.swing.SwingConstants;
+import javax.swing.JOptionPane;
 
 public class ventanaGrafo extends JFrame {
 
@@ -83,8 +84,13 @@ public class ventanaGrafo extends JFrame {
 			            return;
 			        }
 			        // Si el botón dicen OBTENER AGM
-			        areaSimilaridades.setText(controlador.obtenerAGM());		       
-			        lblTitulo.setText("ÁRBOL GENERADOR MÍNIMO");		        
+			        try {
+			            areaSimilaridades.setText(controlador.obtenerAGM());
+			        } catch (IllegalArgumentException ex) {
+			            JOptionPane.showMessageDialog(ventanaGrafo.this, ex.getMessage());
+			            return;
+			        }
+			        lblTitulo.setText("ÁRBOL GENERADOR MÍNIMO");
 			        //cambio el texto del botón una vez mostrado el agm
 			        btnAGM.setText("VOLVER PARA OBTENER REGIONES");
 			    }
