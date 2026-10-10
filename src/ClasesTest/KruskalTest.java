@@ -12,11 +12,12 @@ import Grafo.Provincia;
 
 public class KruskalTest {
 
-    private Provincia v(String nombre) {
-        return new Provincia(nombre, 0, 0);
-    }
+    //private Provincia v(String nombre) {
+        //return new Provincia(nombre, 0, 0);
+    //}
 
     // A-B:1, B-C:2, A-C:10
+
     private Grafo triangulo() {
         Grafo g = new Grafo();
         Provincia a = v("A"), b = v("B"), c = v("C");

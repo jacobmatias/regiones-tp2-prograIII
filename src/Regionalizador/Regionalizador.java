@@ -33,14 +33,14 @@ public class Regionalizador {
             aristasFiltradas.add(agm.get(i));
         }
 
-        UnionFind<Provincia> uf = new UnionFind<>(g.getProvincias());
+        UnionFind<Provincia> uf = new UnionFind<>(g.getProvincias().values());
         for (Arista a : aristasFiltradas) {
             uf.union(a.getProvincia1(), a.getProvincia2());
         }
 
         //agrupar las provincias en regiones
         Map<Provincia, Region> mapaRegiones = new HashMap<>();
-        for (Provincia v : g.getProvincias()) {
+        for (Provincia v : g.getProvincias().values()) {
             Provincia representante = uf.find(v);
             if (!mapaRegiones.containsKey(representante)) {
                 mapaRegiones.put(representante, new Region());

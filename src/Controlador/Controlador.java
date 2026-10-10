@@ -53,7 +53,8 @@ public class Controlador {
     }
 
     private Provincia buscarProvincia(String nombre) {
-        for (Provincia v : grafo.getProvincias()) {
+
+        for (Provincia v : grafo.getProvincias().values()) {
             if (v.getNombre().equalsIgnoreCase(nombre.trim())) {
                 return v;
             }

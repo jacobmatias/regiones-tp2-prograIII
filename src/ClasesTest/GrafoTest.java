@@ -17,9 +17,9 @@ public class GrafoTest {
     @Before
     public void setUp() {
         g = new Grafo();
-        a = new Provincia("A", 0, 0);
+        a = new Provincia("A", 500, 200);
         b = new Provincia("B", 0, 0);
-        c = new Provincia("C", 0, 0);
+        c = new Provincia("C", 10, 20);
         g.agregarProvincia(a);
         g.agregarProvincia(b);
         g.agregarProvincia(c);
@@ -46,7 +46,7 @@ public class GrafoTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void aristaConVerticeInexistente() {
-        Provincia z = new Provincia("Z", 0, 0);
+        Provincia z = new Provincia("Z", 10, 0);
         g.agregarArista(a, z, 1);
     }
 
@@ -60,10 +60,9 @@ public class GrafoTest {
         g.agregarProvincia(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void verticeRepetidoNoSeDuplica() {
-        g.agregarProvincia(new Provincia("A", 5, 5));
-        assertEquals(3, g.getProvincias().size());
+        g.agregarProvincia(new Provincia("A", 500, 200));
     }
 
     @Test

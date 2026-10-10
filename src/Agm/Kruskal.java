@@ -21,7 +21,7 @@ public class Kruskal {
         List<Arista> ordenadas = new ArrayList<>(g.getAristas());
         ordenadas.sort(Comparator.comparingDouble(Arista::getSimilaridad));
 
-        UnionFind<Provincia> uf = new UnionFind<>(g.getProvincias());
+        UnionFind<Provincia> uf = new UnionFind<>(g.getProvincias().values());
         List<Arista> arbol = new ArrayList<>();
 
         for (Arista a : ordenadas) {

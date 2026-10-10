@@ -3,12 +3,13 @@ package Grafo;
 import java.util.*;
 
 public class Grafo {
-    private final Set<Provincia> vertices = new LinkedHashSet<>();
+    private final HashMap<Coordenadas,Provincia> vertices = new LinkedHashMap<>();
     private final List<Arista> aristas = new ArrayList<>();
 
     public void agregarProvincia(Provincia v) {
         if (v == null) throw new IllegalArgumentException("La provincia no puede ser null");
-        vertices.add(v);
+        if(vertices.containsKey(v.getCoordenadas())) throw new IllegalArgumentException("las coordenadas ya estan ocupadas");
+        vertices.put(v.getCoordenadas(),v);
     }
 
     public void agregarArista(Provincia a, Provincia b, double similaridad) {
@@ -24,7 +25,7 @@ public class Grafo {
         aristas.add(new Arista(a, b, similaridad));
     }
 
-    public Set<Provincia> getProvincias() { return Collections.unmodifiableSet(vertices); }
+    public Map<Coordenadas,Provincia> getProvincias() { return Collections.unmodifiableMap(vertices); }
     public List<Arista> getAristas() { return Collections.unmodifiableList(aristas); }
 
     public Set<Provincia> getVecinos(Provincia v) {
@@ -48,11 +49,11 @@ public class Grafo {
 
     public boolean esConexo() {
         if (vertices.isEmpty()) return true;
-        return recorrer(vertices.iterator().next()).size() == vertices.size();
+        return recorrer(vertices.values().iterator().next()).size() == vertices.size();
     }
 
     private void verificarExiste(Provincia v) {
-        if (v == null || !vertices.contains(v))
+        if (v == null || !vertices.containsKey(v.getCoordenadas()))
             throw new IllegalArgumentException("La provincia no existe en el grafo: " + v);
     }
 }

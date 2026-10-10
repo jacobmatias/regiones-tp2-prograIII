@@ -95,7 +95,7 @@ public class ventanaPrincipal extends JFrame {
 		        }
 		    	try {
 		        	double x = Double.parseDouble(xTexto.replace(",","."));
-		        	double y = Double.parseDouble(yTexto.replace(",","."));			        
+		        	double y = Double.parseDouble(yTexto.replace(",","."));
 			        controlador.agregarProvincia(nombre, x, y);
 			        comboBox1.addItem(nombre);
 			        comboBox2.addItem(nombre);		      
@@ -107,6 +107,10 @@ public class ventanaPrincipal extends JFrame {
 		    	} catch (NumberFormatException ex) {
 		    		JOptionPane.showMessageDialog(ventanaPrincipal.this,"Las coordenadas deben ser números válidos.");
 		    	}
+				catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(ventanaPrincipal.this,"las coordenadas de la provincia ya estan ocupadas");
+				}
+
 		    }
 		});
 		btnCrearProvincia.setBounds(448, 110, 173, 23);
