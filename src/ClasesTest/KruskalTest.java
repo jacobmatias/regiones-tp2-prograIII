@@ -20,7 +20,7 @@ public class KruskalTest {
 
     private Grafo triangulo() {
         Grafo g = new Grafo();
-        Provincia a = v("A"), b = v("B"), c = v("C");
+        Provincia a = new Provincia("A",500,200), b = new Provincia("B",200,500), c = new Provincia("C",300,150);
         g.agregarProvincia(a);
         g.agregarProvincia(b);
         g.agregarProvincia(c);
@@ -38,7 +38,7 @@ public class KruskalTest {
     @Test
     public void grafoDeUnVerticeDaArbolVacio() {
         Grafo g = new Grafo();
-        g.agregarProvincia(v("A"));
+        g.agregarProvincia(new Provincia("A",500,200));
         assertTrue(Kruskal.arbolGeneradorMinimo(g).isEmpty());
     }
 
@@ -64,7 +64,7 @@ public class KruskalTest {
     @Test
     public void conPesosIgualesIgualmenteArmaArbol() {
         Grafo g = new Grafo();
-        Provincia a = v("A"), b = v("B"), c = v("C");
+        Provincia a = new Provincia("A",500,200), b = new Provincia("B",200,500), c = new Provincia("C",300,150);
         g.agregarProvincia(a);
         g.agregarProvincia(b);
         g.agregarProvincia(c);
@@ -84,8 +84,8 @@ public class KruskalTest {
     @Test(expected = IllegalArgumentException.class)
     public void grafoNoConexoLanzaExcepcion() {
         Grafo g = new Grafo();
-        g.agregarProvincia(v("A"));
-        g.agregarProvincia(v("B"));
+        g.agregarProvincia(new Provincia("A",500,200));
+        g.agregarProvincia(new Provincia("B",200,500));
         Kruskal.arbolGeneradorMinimo(g);
     }
 }
